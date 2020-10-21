@@ -8,9 +8,9 @@ Congratulations! After a lot of hard work in the data munging mines, you've land
 Like many others in its genre, the game is free-to-play, but players are encouraged to purchase optional items that enhance their playing experience. As a first task, the company would like you to generate a report that breaks down the game's purchasing data into meaningful insights.
 
 ## Observable Trends
-* 
-* 
-* 
+* The most apparent trend in the data is the difference in gender percentages. In the Pymoli data, 84.03% of the users are male, while 14.06% are female.
+* If one examines the Purchasing Analysis (Gender) data frame, men make 82.68% of the total purchases while women make 15.21%. What is significant about this is that women purchase 15.21% of the total while only making up 14.06% of the game population. Women are spending more than men.
+* In the Purchasing Analysis (Age) data frame, we find that the 20-24-year-old age bracket is the largest but does not spend the most. The age group that purchases the most is the 35-39-year-old group; this group spends $4.76 per person. I would expect an older age bracket to buy more as they likely have more disposable income. Finally, the most surprising piece of data is the <10-year-old group comes in second with $4.54; this may be an artifact of the small sample size, though.
 ## Requirements, Code and Results
 Your final report should include each of the following:
 
