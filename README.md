@@ -8,9 +8,9 @@ Congratulations! After a lot of hard work in the data munging mines, you've land
 Like many others in its genre, the game is free-to-play, but players are encouraged to purchase optional items that enhance their playing experience. As a first task, the company would like you to generate a report that breaks down the game's purchasing data into meaningful insights.
 
 ## Observable Trends
-*
-*
-*
+* 
+* 
+* 
 ## Requirements, Code and Results
 Your final report should include each of the following:
 
@@ -19,11 +19,9 @@ Your final report should include each of the following:
 ```python
 # Dependencies and Setup
 import pandas as pd
-import pprint         # this is only needed for debug
 
 # File to Load (Remember to Change These)
 file_to_load = "Resources/purchase_data.csv"
-pp = pprint.PrettyPrinter(indent=4)
 
 # Read Purchasing File and store into Pandas data frame
 purchase_data_df = pd.read_csv(file_to_load)
@@ -54,8 +52,6 @@ player_count_df
   </tbody>
 </table>
 </div>
-
-
 
 ### Purchasing Analysis (Total)
 
@@ -113,14 +109,10 @@ summary_df.style.format({"Average Price": '${:,.2f}',
 ```python
 # get a gender data frame group
 gender_dfg = purchase_data_df.groupby("Gender")
-# for key, item in gender_dfg:
-#     print(gender_dfg.get_group(key))
 
 # Get the stats
 total_gender_dfu = gender_dfg.nunique()["SN"]
-# print(total_gender_dfu)
 percent_of_players_dfu = total_gender_dfu / player_count * 100
-# print(percent_of_players_dfu)
 
 # Create data frame
 gender_demo_df = pd.DataFrame({"Total Count": total_gender_dfu, "Percentage of Players": percent_of_players_dfu})
@@ -160,7 +152,6 @@ gender_demo_df.sort_values(["Total Count"], ascending = False).style.format(
 </div>
 
 ### Purchasing Analysis (Gender)
-
 * The below each broken by gender
   * Purchase Count
   * Average Purchase Price
@@ -252,8 +243,6 @@ purchase_data_df["Age Group"] = pd.cut(purchase_data_df["Age"], age_bins, labels
 
 # Create new data frame group
 ages_dfg = purchase_data_df.groupby("Age Group")
-# for key, item in ages_dfg:
-#    print(ages_dfg.get_group(key))
 
 # Get the stats
 total_age_count_col = ages_dfg["SN"].nunique()
@@ -430,11 +419,30 @@ age_analysis_df.style.format({
   * Purchase Count
   * Average Purchase Price
   * Total Purchase Value
-  ```python
+```python
+# Create new data frame group
+names_dfg = purchase_data_df.groupby("SN")
 
-  ```
-  <div>
-  <table border="1" class="dataframe">
+# Get the stats
+top_purchase_count_col = names_dfg["Purchase ID"].count()
+top_average_pp_col = names_dfg["Price"].mean()
+top_total_purchase_value_col = names_dfg["Price"].sum()
+
+# Create data frame with the values above 
+top_sum_df = pd.DataFrame({
+                            "Purchase Count": top_purchase_count_col, 
+                            "Average Purchase Price": top_average_pp_col,
+                            "Total Purchase Value": top_total_purchase_value_col
+                          })
+
+# Format with currency style
+top_sum_df.sort_values(['Total Purchase Value'], ascending=False).head().style.format({
+      "Average Purchase Price": "${:,.2f}",
+      "Total Purchase Value": "${:,.2f}"
+      })
+```
+<div>
+<table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -498,8 +506,6 @@ items_df = purchase_data_df[['Item ID', 'Item Name', 'Price']]
 
 # Create the dataframe group
 items_dfg = items_df.groupby(['Item ID', 'Item Name'])
-# for key, item in items_dfg:
-#    print(items_dfg.get_group(key))
 
 # Get the stats
 mostpop_purchase_count_col = items_dfg["Item ID"].count()
@@ -575,7 +581,6 @@ mostpop_sum_df.sort_values(['Purchase Count'], ascending=False).head().style.for
 </div>
 
 ### Most Profitable Items
-
 * Identify the 5 most profitable items by total purchase value, then list (in a table):
   * Item ID
   * Item Name
@@ -586,7 +591,6 @@ mostpop_sum_df.sort_values(['Purchase Count'], ascending=False).head().style.for
 # Format with currency style 
 mostpop_sum_df.sort_values(['Total Purchase Value'], ascending=False).head().style.format({"Item Price": "${:,.2f}", "Total Purchase Value": "${:,.2f}"})
 ```
-
 <div>
 <table border="1" class="dataframe">
   <thead>
